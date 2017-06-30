@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.toshiba.mwcloud.gs.spark</groupId>
+		<artifactId>griddb-spark</artifactId>
+		<version>1.0.0</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<groupId>com.toshiba.mwcloud.gs.spark</groupId>
+	<artifactId>gs-spark-datasource</artifactId>
+	<version>1.0.0</version>
+	<name>griddb-spark</name>
+	<description>GridDB connector for Apache Spark</description>
+	<packaging>jar</packaging>
+	<properties>
+		<scala.version>2.11.8</scala.version>
+		<spark.version>2.1.0</spark.version>
+		<gridstore.version>3.0.0</gridstore.version>
+		<gridstore.jar>${project.basedir}/lib/gridstore.jar</gridstore.jar>
+		<gridstore.hadoop.version>1.0.0</gridstore.hadoop.version>
+		<gridstore.hadoop.jar>${project.basedir}/lib/gs-hadoop-mapreduce-client-1.0.0.jar</gridstore.hadoop.jar>
+	</properties>
+	<build>
+		<sourceDirectory>src/</sourceDirectory>
+		<finalName>gs-spark-datasource</finalName>
+		<plugins>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<scalaVersion>${scala.version}</scalaVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-sql_2.10</artifactId>
+			<version>${spark.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.toshiba.mwcloud.gs.hadoop</groupId>
+			<artifactId>gs-hadoop-mapreduce-client</artifactId>
+			<version>${gridstore.hadoop.version}</version>
+			<scope>system</scope>
+			<systemPath>${gridstore.hadoop.jar}</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.toshiba.mwcloud.gs</groupId>
+			<artifactId>gridstore</artifactId>
+			<version>${gridstore.version}</version>
+			<scope>system</scope>
+			<systemPath>${gridstore.jar}</systemPath>
+		</dependency>
+	</dependencies>
+</project>

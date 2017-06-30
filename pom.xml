@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			     http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.toshiba.mwcloud.gs.spark</groupId>
+  <artifactId>griddb-spark</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+  <name>GridDB connector for Apache Spark</name>
+	<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spark.version>2.1.0</spark.version>
+  </properties>
+  <modules>
+    <module>gs-spark-datasource</module>
+    <module>gs-spark-datasource-example</module>
+  </modules>
+  <dependencyManagement>
+    <dependencies>
+      		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-sql_2.10</artifactId>
+			<version>${spark.version}</version>
+		</dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

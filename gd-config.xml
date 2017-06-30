@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>gs.user</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.password</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.cluster.name</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.host</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.port</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.notification.address</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.notification.port</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.notification.member</name>
+		<value></value>
+	</property>
+	<property>
+		<name>gs.notification.provider</name>
+		<value></value>
+	</property>
+</configuration>
