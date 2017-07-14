@@ -22,7 +22,7 @@ import java.io.File
 
 import scala.collection.immutable.Seq
 
-// Spark Lib
+// Apache Spark Lib
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.rdd._
@@ -42,19 +42,19 @@ import org.apache.spark.sql.catalyst.plans._
 import org.apache.spark.sql.catalyst.plans.logical.{LogicalPlan, _}
 import org.apache.spark.sql.catalyst.analysis.Analyzer
 
-// Hadoop Lib
+// Apache Hadoop Lib
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.NullWritable
 import org.apache.hadoop.mapreduce.Job
 
-// GridData Lib
+// GridDB Connector for Apache Hadoop MapReduce
 import com.toshiba.mwcloud.gs.hadoop.io.GSRowWritable
 import com.toshiba.mwcloud.gs.hadoop.io.GSColumnKeyWritable
 import com.toshiba.mwcloud.gs.hadoop.mapreduce.GSRowInputFormat
 import com.toshiba.mwcloud.gs.hadoop.mapreduce.GSRowOutputFormat
 
-// GridDB Lib
+// GridDB Java Client
 import com.toshiba.mwcloud.gs.GridStore
 import com.toshiba.mwcloud.gs.GridStoreFactory
 import com.toshiba.mwcloud.gs.GSType
