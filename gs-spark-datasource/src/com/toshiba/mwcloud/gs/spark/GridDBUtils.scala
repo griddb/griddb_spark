@@ -74,12 +74,12 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
    */
   def createRDD(containerName: String) : RDD[GSRowWritable] = {
     val griddbConf = new Configuration()
-	
-	val env = System.getenv(ENV_PROPERTIES)
-  	if (env != null) {
-		griddbConf.addResource(new Path(env))
-  	}
-	System.out.println("griddbConf=" + griddbConf.toString())
+
+    val env = System.getenv(ENV_PROPERTIES)
+    if (env != null) {
+        griddbConf.addResource(new Path(env))
+    }
+    System.out.println("griddbConf=" + griddbConf.toString())
     griddbConf.set("gs.input.container.name.regex", containerName)
     if (sc.getConf.contains("gs.database")) {
       griddbConf.set("gs.database", sc.getConf.get("gs.database"))
@@ -169,11 +169,11 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
    */
   private def putContainer(containerName: String, saveDataFrame: DataFrame, rowKey: Boolean) {
     val griddbConf = new Configuration()
-	
-	val env = System.getenv(ENV_PROPERTIES)
-  	if (env != null) {
-		griddbConf.addResource(new Path(env))
-  	}
+
+    val env = System.getenv(ENV_PROPERTIES)
+    if (env != null) {
+        griddbConf.addResource(new Path(env))
+    }
 
     if (sc.getConf.contains("gs.database")) {
       griddbConf.set("gs.database", sc.getConf.get("gs.database"))
@@ -226,54 +226,54 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
   def connectGridDB() : GridStore = {
     val griddbConf = new Configuration()
     var props = new Properties()
-	
-	val env = System.getenv(ENV_PROPERTIES)
-  	if (env != null) {
-		griddbConf.addResource(new Path(env))
-  	}
-	
-	if(griddbConf.get("gs.host") != null){
-		props.setProperty("host", griddbConf.get("gs.host"))
-	}
-	if(griddbConf.get("gs.port") != null){
-		props.setProperty("port", griddbConf.get("gs.port"))
-	}
-	if(griddbConf.get("gs.notification.address") != null){
-		props.setProperty("notificationAddress", griddbConf.get("gs.notification.address"))
-	}
-	if(griddbConf.get("gs.notification.port") != null){
-		props.setProperty("notificationPort", griddbConf.get("gs.notification.port"))
-	}
-	if(griddbConf.get("gs.notification.member") != null){
-		props.setProperty("notificationMember", griddbConf.get("gs.notification.member"))
-	}
-	if(griddbConf.get("gs.notification.provider") != null){
-		props.setProperty("notificationProvider", griddbConf.get("gs.notification.provider"))
-	}
-	if(griddbConf.get("gs.consistency") != null){
-		props.setProperty("consistency", griddbConf.get("gs.consistency"))
-	}
-	if(griddbConf.get("gs.transaction.timeout") != null){
-		props.setProperty("transactionTimeout", griddbConf.get("gs.transaction.timeout"))
-	}
-	if(griddbConf.get("gs.failover.timeout") != null){
-		props.setProperty("failoverTimeout", griddbConf.get("gs.failover.timeout"))
-	}
-	if(griddbConf.get("gs.container.cache.size") != null){
-		props.setProperty("containerCacheSize", griddbConf.get("gs.container.cache.size"))
-	}
-	if(griddbConf.get("gs.data.affinity.pattern") != null){
-		props.setProperty("dataAffinityPattern", griddbConf.get("gs.data.affinity.pattern"))
-	}
 
-	props.setProperty("clusterName", griddbConf.get("gs.cluster.name"))
-	props.setProperty("user", griddbConf.get("gs.user"))
-	props.setProperty("password", griddbConf.get("gs.password"))
-	
-    if (sc.getConf.contains("gs.database")) {
-      props.setProperty("database", sc.getConf.get("gs.database"))
+    val env = System.getenv(ENV_PROPERTIES)
+    if (env != null) {
+        griddbConf.addResource(new Path(env))
     }
-	GridStoreFactory.getInstance().getGridStore(props)
+
+    if(griddbConf.get("gs.host") != null){
+        props.setProperty("host", griddbConf.get("gs.host"))
+    }
+    if(griddbConf.get("gs.port") != null){
+        props.setProperty("port", griddbConf.get("gs.port"))
+    }
+    if(griddbConf.get("gs.notification.address") != null){
+        props.setProperty("notificationAddress", griddbConf.get("gs.notification.address"))
+    }
+    if(griddbConf.get("gs.notification.port") != null){
+        props.setProperty("notificationPort", griddbConf.get("gs.notification.port"))
+    }
+    if(griddbConf.get("gs.notification.member") != null){
+        props.setProperty("notificationMember", griddbConf.get("gs.notification.member"))
+    }
+    if(griddbConf.get("gs.notification.provider") != null){
+        props.setProperty("notificationProvider", griddbConf.get("gs.notification.provider"))
+    }
+    if(griddbConf.get("gs.consistency") != null){
+        props.setProperty("consistency", griddbConf.get("gs.consistency"))
+    }
+    if(griddbConf.get("gs.transaction.timeout") != null){
+        props.setProperty("transactionTimeout", griddbConf.get("gs.transaction.timeout"))
+    }
+    if(griddbConf.get("gs.failover.timeout") != null){
+        props.setProperty("failoverTimeout", griddbConf.get("gs.failover.timeout"))
+    }
+    if(griddbConf.get("gs.container.cache.size") != null){
+        props.setProperty("containerCacheSize", griddbConf.get("gs.container.cache.size"))
+    }
+    if(griddbConf.get("gs.data.affinity.pattern") != null){
+        props.setProperty("dataAffinityPattern", griddbConf.get("gs.data.affinity.pattern"))
+    }
+
+    props.setProperty("clusterName", griddbConf.get("gs.cluster.name"))
+    props.setProperty("user", griddbConf.get("gs.user"))
+    props.setProperty("password", griddbConf.get("gs.password"))
+
+    if (sc.getConf.contains("gs.database")) {
+        props.setProperty("database", sc.getConf.get("gs.database"))
+    }
+    GridStoreFactory.getInstance().getGridStore(props)
   }
     
   /**
