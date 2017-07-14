@@ -67,17 +67,19 @@ import com.toshiba.mwcloud.gs.ColumnInfo
 class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
   
   val ENV_PROPERTIES = "GRIDDB_SPARK_PROPERTIES"
-  val ENV_DELIMITER = ","
-  val CONFIG_FILEPATH = "./gd-config.xml"
     
   /**
    * createRDD
    *   containerName : String
    */
   def createRDD(containerName: String) : RDD[GSRowWritable] = {
-    val griddbConf = new Configuration
-    griddbConf.addResource(new Path(CONFIG_FILEPATH))
-    System.out.println("griddbConf=" + griddbConf.toString())
+    val griddbConf = new Configuration()
+	
+	val env = System.getenv(ENV_PROPERTIES)
+  	if (env != null) {
+		griddbConf.addResource(new Path(env))
+  	}
+	System.out.println("griddbConf=" + griddbConf.toString())
     griddbConf.set("gs.input.container.name.regex", containerName)
     if (sc.getConf.contains("gs.database")) {
       griddbConf.set("gs.database", sc.getConf.get("gs.database"))
@@ -166,8 +168,13 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
    *   rowKey : Boolean
    */
   private def putContainer(containerName: String, saveDataFrame: DataFrame, rowKey: Boolean) {
-    val griddbConf = new Configuration
-    griddbConf.addResource(new Path(CONFIG_FILEPATH))
+    val griddbConf = new Configuration()
+	
+	val env = System.getenv(ENV_PROPERTIES)
+  	if (env != null) {
+		griddbConf.addResource(new Path(env))
+  	}
+
     if (sc.getConf.contains("gs.database")) {
       griddbConf.set("gs.database", sc.getConf.get("gs.database"))
     }
@@ -222,15 +229,7 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
 	
 	val env = System.getenv(ENV_PROPERTIES)
   	if (env != null) {
-		val fileNames = env.split(ENV_PROPERTIES)
-		var i = 0
-		while (i < fileNames.length) {
-			val fileName = fileNames(i).trim()
-			if (fileName.length() != 0) {
-				griddbConf.addResource(new Path(fileName))
-			}
-			i = i + 1
-		}
+		griddbConf.addResource(new Path(env))
   	}
 	
 	if(griddbConf.get("gs.host") != null){
@@ -246,13 +245,12 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
 		props.setProperty("notificationPort", griddbConf.get("gs.notification.port"))
 	}
 	if(griddbConf.get("gs.notification.member") != null){
-		println(griddbConf.get("gs.notification.member"))
 		props.setProperty("notificationMember", griddbConf.get("gs.notification.member"))
 	}
 	if(griddbConf.get("gs.notification.provider") != null){
 		props.setProperty("notificationProvider", griddbConf.get("gs.notification.provider"))
 	}
-		if(griddbConf.get("gs.consistency") != null){
+	if(griddbConf.get("gs.consistency") != null){
 		props.setProperty("consistency", griddbConf.get("gs.consistency"))
 	}
 	if(griddbConf.get("gs.transaction.timeout") != null){
@@ -273,7 +271,7 @@ class GridDBUtils[K, V](sc: SparkContext) extends RDD[(K, V)](sc,Nil) {
 	props.setProperty("password", griddbConf.get("gs.password"))
 	
     if (sc.getConf.contains("gs.database")) {
-      props.setProperty("gs.database", sc.getConf.get("gs.database"))
+      props.setProperty("database", sc.getConf.get("gs.database"))
     }
 	GridStoreFactory.getInstance().getGridStore(props)
   }
